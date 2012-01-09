@@ -1,13 +1,18 @@
 uii – usable irc it
 
 synopsis:
-    uii is a shell script for the minimalistic irc client irc it.
+    uii is a wrapper for the minimalistic irc client irc it.
     ii must be running and connected to a server for uii to work.
+
+    iiinotify is a shell script that uses inotify to monitor irc directory.
+    for query messages and those containing $USER, a notification is shown.
 
 usage:
     ./uii [server] [channel]
 
+    ./iiinotify
+
 bugs:
     - to quit uii you have to input ^C twice, for view and input shell.
     - the irc directory is hardcoded to "$HOME/irc".
-    - uii does not support queries.
+    - iiinotify monitors unnecessary events.

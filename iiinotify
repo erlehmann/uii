@@ -1,10 +1,16 @@
 #!/bin/sh
 while true ; do
-inotifywait -qq -e OPEN "$HOME/irc/$1/$2/out" && \
-    tail -n 1 $HOME/irc/$1/$2/out | cut -b20- | grep $3 -q && \
-    notify-send \
-        "`tail -n 1 $HOME/irc/$1/$2/out | cut -b18-`" \
-        "in $2 @ $1" \
-        -i gtk-dialog-info ;
-done ;
+NOTIFICATION=`inotifywait -q ~/irc -r`
+TYPE=`echo $NOTIFICATION | cut -f2 -d ' '`
+FILE=`echo $NOTIFICATION | cut -f1 -d ' '`
+SERVER=`echo $FILE | cut -f5 -d '/'`
+ENTITY=`echo $FILE | cut -f6 -d '/'`
 
+(
+    echo $ENTITY | grep -qv '#' ||
+    tail -n 1 $FILE/out | cut -b20- | grep -q $USER
+) && \
+    MESSAGE=`tail -n 1 $FILE/out | cut -b18-` && \
+    notify-send "$MESSAGE" "($ENTITY@$SERVER)" -i gtk-dialog-info
+
+done ;
