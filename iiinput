@@ -1,0 +1,5 @@
+#!/bin/sh
+while true ; do
+cat > $1 ;
+clear ;
+done ;

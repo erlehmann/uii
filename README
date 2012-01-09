@@ -1,0 +1,13 @@
+uii – usable irc it
+
+synopsis:
+    uii is a shell script for the minimalistic irc client irc it.
+    ii must be running and connected to a server for uii to work.
+
+usage:
+    ./uii [server] [channel]
+
+bugs:
+    - to quit uii you have to input ^C twice, for view and input shell.
+    - the irc directory is hardcoded to "$HOME/irc".
+    - uii does not support queries.
