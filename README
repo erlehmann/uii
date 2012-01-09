@@ -16,3 +16,4 @@ bugs:
     - to quit uii you have to input ^C twice, for view and input shell.
     - the irc directory is hardcoded to "$HOME/irc".
     - iiinotify monitors unnecessary events.
+    - uii has no channel nick name list.
