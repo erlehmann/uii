@@ -1,16 +1,24 @@
 #!/bin/sh
 while true ; do
-NOTIFICATION=`inotifywait -q ~/irc -r`
-TYPE=`echo $NOTIFICATION | cut -f2 -d ' '`
-FILE=`echo $NOTIFICATION | cut -f1 -d ' '`
-SERVER=`echo $FILE | cut -f5 -d '/'`
-ENTITY=`echo $FILE | cut -f6 -d '/'`
+NOTIFICATION=`inotifywait -q ~/irc -r -e OPEN`
+FILE=`echo $NOTIFICATION | cut -f3 -d ' '`
+test $FILE = 'out' || continue
 
-(
+TYPE=`echo $NOTIFICATION | cut -f2 -d ' '`
+FOLDER=`echo $NOTIFICATION | cut -f1 -d ' '`
+SERVER=`echo $FOLDER | cut -f5 -d '/' | tr -d "<>;&\\'\""`
+ENTITY=`echo $FOLDER | cut -f6 -d '/' | tr -d "<>;&\\'\""`
+
+( \
     echo $ENTITY | grep -qv '#' ||
-    tail -n 1 $FILE/out | cut -b20- | grep -q $USER
+    tail -n 1 $FOLDER/out | cut -b20- | grep -q $USER
 ) && \
-    MESSAGE=`tail -n 1 $FILE/out | cut -b18-` && \
+    MESSAGE=`tail -n 1 $FOLDER/out | cut -b18- | tr -d "<>;&\\'\""` && \
     notify-send "$MESSAGE" "($ENTITY@$SERVER)" -i gtk-dialog-info
+
+test -r "$HOME/irc/$SERVER/$ENTITY/out" && ( \
+    pgrep -fl "uii $SERVER $ENTITY" || \
+        $TERM -e "./uii $SERVER $ENTITY" &
+)
 
 done ;
