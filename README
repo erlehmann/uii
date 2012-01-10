@@ -6,14 +6,20 @@ synopsis:
 
     iiinotify is a shell script that uses inotify to monitor irc directory.
     for query messages and those containing $USER, a notification is shown.
+    additionally, iiinotify opens new terminals with uii for query messages.
 
 usage:
     ./uii [server] [channel]
 
     ./iiinotify
 
+dependencies:
+    uii depends on ii, pgrep, sh, splitvt and tail.
+    iiinotify depends on inotifywait and uii.
+
 bugs:
     - to quit uii you have to input ^C twice, for view and input shell.
+    - uii breaks X11 copy and paste (due to splitvt fail).
     - the irc directory is hardcoded to "$HOME/irc".
     - iiinotify monitors unnecessary events.
     - uii has no channel nick name list.
