@@ -1,9 +1,9 @@
 #!/bin/sh
-pgrep -fl "ii -s $1" && ( \
+./iiconnected "$1" && ( \
     echo "/j $2" > $HOME/irc/$1/in  && \
     splitvt \
         -upper "tail -n 40 -f $HOME/irc/$1/$2/out" \
-        -lower "./iiinput $HOME/irc/$1/$2/in" \
+        -lower "./iiinput $1 $2" \
         -bottom \
         -s 40 -f \
 ) || \

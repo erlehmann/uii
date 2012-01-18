@@ -1,5 +1,7 @@
 #!/bin/sh
-while true ; do
-cat > $1 ;
-clear ;
-done ;
+while true
+do
+    ./iiconnected "$1" || kill "$PPID"
+    cat > "$HOME/irc/$1/$2/in"
+    clear
+done
