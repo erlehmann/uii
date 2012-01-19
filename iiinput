@@ -1,2 +1,2 @@
 #!/bin/sh
-rlwrap -S "$2 " -p'0;37' cat > "$1"
+rlwrap -i -p'0;37' -r -S "$2 " cat > "$1"
