@@ -8,5 +8,5 @@ INFILE="$HOME/irc/$1/in"
 echo "/j $2" > "$HOME/irc/$1/in"
 
 splitvt -bottom -s 80 -f \
-    -upper "tail -n 80 -f $HOME/irc/$1/$2/out" \
+    -upper "./iioutput $HOME/irc/$1/$2/out" \
     -lower "./iiinput $HOME/irc/$1/$2/in $2"
