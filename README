@@ -14,7 +14,7 @@ usage:
     ./iiinotify
 
 dependencies:
-    uii depends on ii, pgrep, sh, splitvt and tail.
+    uii depends on ii, pgrep, rlwrap, sh, splitvt and tail.
     iiinotify depends on inotifywait and uii.
 
 bugs:

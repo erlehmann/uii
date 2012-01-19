@@ -2,6 +2,5 @@
 while true
 do
     ./iiconnected "$1" || kill "$PPID"
-    cat > "$HOME/irc/$1/$2/in"
-    clear
+    rlwrap -S "$2 " -p'0;37' -o cat > "$HOME/irc/$1/$2/in"
 done
