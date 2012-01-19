@@ -1,11 +1,13 @@
 #!/bin/sh
-./iiconnected "$1" && ( \
-    echo "/j $2" > $HOME/irc/$1/in  && \
-    splitvt \
-        -upper "tail -n 80 -f $HOME/irc/$1/$2/out" \
-        -lower "./iiinput $HOME/irc/$1/$2/in $2" \
-        -bottom \
-        -s 80 -f \
-) || \
-echo "ii is not connected to $1, exiting …" && \
-    false
+set -e
+
+INFILE="$HOME/irc/$1/in"
+(test -e "$INFILE" && lsof -Fc "$INFILE" | grep -q "cii") || \
+    nohup ii -s "$1" &
+
+echo "/j $2" > "$HOME/irc/$1/in"
+
+splitvt \
+    -upper "tail -n 80 -f $HOME/irc/$1/$2/out" \
+    -lower "./iiinput $HOME/irc/$1/$2/in $2" \
+    -bottom -s 80 -f

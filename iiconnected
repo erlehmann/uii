@@ -1,4 +1,0 @@
-#!/bin/sh
-FILE="$HOME/irc/$1/in"
-test -e $FILE && \
-    lsof -Fc $FILE | grep -q "cii"
