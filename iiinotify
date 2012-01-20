@@ -7,8 +7,8 @@ do
     test "$FILE" = "out" && (
         SERVER=`echo "$DIRECTORY" | cut -f5 -d '/'`
         ENTITY=`echo "$DIRECTORY" | cut -f6 -d '/'`
-
+        MESSAGE=`tail -n1 "$DIRECTORY/$FILE" | cut -f4- -d ' '`
         pgrep -f "./uii $SERVER $ENTITY" || \
-            nohup x-terminal-emulator -e "./uii $SERVER $ENTITY" > /dev/null 2>&1 &
+            notify-send -t 0 -i network-receive "$ENTITY ($SERVER)" "<i>$MESSAGE</i>"
     )
 done

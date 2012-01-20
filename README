@@ -2,24 +2,20 @@ uii – usable irc it
 
 synopsis:
     uii is a wrapper for the minimalistic irc client irc it.
-    ii must be running and connected to a server for uii to work.
+    if ii is not running and connected to a server, it will be started.
 
-    iiinotify is a shell script that uses inotify to monitor irc directory.
-    for query messages and those containing $USER, a notification is shown.
-    additionally, iiinotify opens new terminals with uii for query messages.
+    uii uses iiinotify, a shell script that uses inotify to monitor irc directory.
+    for messages not displayed in an existing uii instance, a notification is shown.
 
 usage:
     ./uii [server] [channel]
 
-    ./iiinotify
-
 dependencies:
     uii depends on grep, ii, lsof, nohup, pgrep, rlwrap, sh, splitvt and tail.
-    iiinotify depends on inotifywait and uii.
+    iiinotify depends on inotifywait, notify-send and uii.
 
 bugs:
     - to quit uii you have to input ^C twice, for view and input shell.
     - for X11 copy and paste, hold shift (due to splitvt fail).
     - the irc directory is hardcoded to "$HOME/irc".
-    - iiinotify monitors unnecessary events.
     - uii has no channel nick name list.
