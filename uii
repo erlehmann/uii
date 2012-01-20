@@ -5,6 +5,9 @@ INFILE="$HOME/irc/$1/in"
 (test -e "$INFILE" && lsof -Fc "$INFILE" | grep -q "cii") || \
     nohup ii -s "$1" > /dev/null 2>&1 &
 
+pgrep iiinotify > /dev/null 2>&1 || \
+    nohup ./iiinotify > /dev/null 2>&1 &
+
 echo "/j $2" > "$HOME/irc/$1/in"
 
 splitvt -bottom -s 80 -f \
