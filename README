@@ -10,12 +10,14 @@ synopsis:
 usage:
     ./uii [server] [channel]
 
+    to quit uii, press ^C twice; alternatively, press ^O, then q.
+    to mark text or insert it using X11 copy and paste, hold shift.
+
 dependencies:
     uii depends on grep, ii, lsof, nohup, pgrep, rlwrap, sh, splitvt and tail.
     iiinotify depends on inotifywait, notify-send and uii.
 
 bugs:
-    - to quit uii you have to input ^C twice, for view and input shell.
-    - for X11 copy and paste, hold shift (due to splitvt fail).
+    - rxvt may produce artifacts when uii output scrolls.
     - resizing the terminal fucks up the layout.
     - uii has no channel nick name list.
