@@ -17,5 +17,5 @@ dependencies:
 bugs:
     - to quit uii you have to input ^C twice, for view and input shell.
     - for X11 copy and paste, hold shift (due to splitvt fail).
-    - the irc directory is hardcoded to "$HOME/irc".
+    - resizing the terminal fucks up the layout.
     - uii has no channel nick name list.
