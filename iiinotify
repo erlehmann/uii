@@ -9,6 +9,6 @@ do
         ENTITY=`echo "$DIRECTORY" | cut -f6 -d '/'`
 
         pgrep -f "./uii $SERVER $ENTITY" || \
-            x-terminal-emulator -e "./uii" "$SERVER" "$ENTITY" &
+            nohup x-terminal-emulator -e "./uii $SERVER $ENTITY" > /dev/null 2>&1 &
     )
 done
