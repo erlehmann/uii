@@ -12,6 +12,11 @@ pgrep iiinotify > /dev/null 2>&1 || \
     nohup ./iiinotify > /dev/null 2>&1 &
 
 test -n "$3" && echo "/n $3" > "$HOME/irc/$1/in"
+test -n "$4" && \
+    (
+        inotifywait "$HOME/irc/$1/nickserv/out"
+        echo "identify $4" > "$HOME/irc/$1/nickserv/in"
+    )
 
 echo "/j $2" > "$HOME/irc/$1/in"
 
