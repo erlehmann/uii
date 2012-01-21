@@ -8,7 +8,7 @@ synopsis:
     for messages not displayed in an existing uii instance, a notification is shown.
 
 usage:
-    ./uii [server] [channel]
+    ./uii server channel [nickname] [password]
 
     to quit uii, press ^C twice; alternatively, press ^O, then q.
     to mark text or insert it using X11 copy and paste, hold shift.
