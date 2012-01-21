@@ -3,7 +3,10 @@ set -e
 
 INFILE="$HOME/irc/$1/in"
 (test -e "$INFILE" && lsof -Fc "$INFILE" | grep -q "cii") || \
-    nohup ii -s "$1" > /dev/null 2>&1 &
+    (
+        nohup ii -s "$1" > /dev/null 2>&1 &
+        inotifywait "$INFILE"
+    )
 
 pgrep iiinotify > /dev/null 2>&1 || \
     nohup ./iiinotify > /dev/null 2>&1 &
