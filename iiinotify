@@ -6,7 +6,7 @@ do
     DIRECTORY=`echo "$NOTIFICATION" | cut -f1 -d ' '`
     test "$FILE" = "out" && (
         SERVER=`echo "$DIRECTORY" | cut -f5 -d '/'`
-        ENTITY=`echo "$DIRECTORY" | cut -f6 -d '/'`
+        ENTITY=`echo "$DIRECTORY" | cut -f6 -d '/' | tr '_' '/'`
         MESSAGE=`tail -n1 "$DIRECTORY/$FILE" | cut -f4- -d ' '`
         pgrep -f "./uii $SERVER $ENTITY" || \
             notify-send -t 0 -i network-receive "$ENTITY ($SERVER)" "<i>$MESSAGE</i>"
