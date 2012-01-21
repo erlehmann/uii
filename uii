@@ -21,7 +21,6 @@ test -n "$4" && \
 
 echo "/j $2" > "$HOME/irc/$1/in"
 
-ENTITY_ESCAPED=`echo "$2" | tr '/' '_'`
 splitvt -bottom -s 80 -f \
-    -upper "./iioutput $HOME/irc/$1/$ENTITY_ESCAPED/out" \
-    -lower "./iiinput $HOME/irc/$1/$ENTITY_ESCAPED/in $2"
+    -upper "./iioutput $HOME/irc/$1/$2/out" \
+    -lower "./iiinput $HOME/irc/$1/$2/in $2"
