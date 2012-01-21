@@ -18,6 +18,7 @@ dependencies:
     iiinotify depends on inotifywait, notify-send and uii.
 
 bugs:
+    - channels with slashes in them are not accessible (due to ii fail).
     - rxvt may produce artifacts when uii output scrolls.
     - resizing the terminal fucks up the layout.
     - uii has no channel nick name list.
