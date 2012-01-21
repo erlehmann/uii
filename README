@@ -10,7 +10,7 @@ synopsis:
 usage:
     ./uii server channel [nickname] [password]
 
-    to quit uii, press ^C twice; alternatively, press ^O, then q.
+    to quit uii, press ^D; alternatively, press ^C twice or ^O, then q.
     to mark text or insert it using X11 copy and paste, hold shift.
 
 dependencies:
