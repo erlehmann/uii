@@ -7,7 +7,7 @@ do
     test "$FILE" = "out" && (
         SERVER=`echo "$DIRECTORY" | cut -f5 -d '/'`
         ENTITY=`echo "$DIRECTORY" | cut -f6 -d '/'`
-        MESSAGE=`tail -n1 "$DIRECTORY/$FILE" | cut -f4- -d ' '`
+        MESSAGE=`tail -n1 "$DIRECTORY/$FILE" | cut -f3- -d ' '`
         pgrep -f "./uii $SERVER $ENTITY" || \
             notify-send -t 0 -i network-receive "$ENTITY ($SERVER)" "<i>$MESSAGE</i>"
     )
