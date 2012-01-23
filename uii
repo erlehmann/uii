@@ -1,10 +1,8 @@
 #!/bin/sh
-set -e
-
 INFILE="$HOME/irc/$1/in"
-(test -e "$INFILE" && lsof -Fc "$INFILE" | grep -q "cii") || \
+(test -e "$INFILE" && lsof -Fc "$INFILE" | busybox grep -q "cii") || \
     (
-        nohup ii -s "$1" -n "${3-$USER}" -k "${4-12345}" > /dev/null 2>&1 &
+        nohup ii -s "$1" -n "${3-$USER}" -k "${4-0000}" > /dev/null 2>&1 &
         inotifywait "$INFILE"
     )
 

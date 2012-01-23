@@ -12,6 +12,6 @@ do
         MESSAGE=`tail -n1 "$DIRECTORY/$FILE" | cut -f3- -d ' ' | \
             busybox tr -d "$FORBIDDEN"`
         pgrep -f "./uii $SERVER $ENTITY" || \
-            notify-send -t 0 -i network-receive "$ENTITY ($SERVER)" "<i>$MESSAGE</i>"
+            notify-send -t 0 -i network-receive "$ENTITY @ $SERVER" "$MESSAGE"
     )
 done
