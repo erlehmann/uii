@@ -4,15 +4,12 @@ set -e
 INFILE="$HOME/irc/$1/in"
 (test -e "$INFILE" && lsof -Fc "$INFILE" | grep -q "cii") || \
     (
-        nohup ii -s "$1" > /dev/null 2>&1 &
+        nohup ii -s "$1" -n "${3-$USER}" -k "${4-12345}" > /dev/null 2>&1 &
         inotifywait "$INFILE"
     )
 
 pgrep iiinotify > /dev/null 2>&1 || \
     nohup ./iiinotify > /dev/null 2>&1 &
-
-test -n "$3" && echo "/n $3" > "$INFILE"
-test -n "$4" && echo "/j nickserv identify $4" > "$INFILE"
 
 echo "/j $2" > "$INFILE"
 
