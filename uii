@@ -17,5 +17,5 @@ test -n "$4" && echo "/j nickserv identify $4" > "$INFILE"
 echo "/j $2" > "$INFILE"
 
 splitvt -bottom -s 80 -f -t "$2 @ $1 – uii" \
-    -upper "./iioutput $HOME/irc/$1/$2/out" \
+    -upper "./iioutput $HOME/irc/$1/$2/out ${3-$USER}" \
     -lower "./iiinput $HOME/irc/$1/$2/in $2"

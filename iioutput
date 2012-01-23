@@ -1,2 +1,3 @@
 #!/bin/sh
-tail -n 80 -f "$1" | cut -c12-
+tail -n 80 -F "$1" | \
+    sed -u "s/ $2/ "`tput bold`"$2"`tput sgr0`"\a/g" | cut -c12-
