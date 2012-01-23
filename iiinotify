@@ -5,9 +5,9 @@ do
     FILE=`echo "$NOTIFICATION" | cut -f3 -d ' '`
     DIRECTORY=`echo "$NOTIFICATION" | cut -f1 -d ' '`
     test "$FILE" = "out" && (
-        SERVER=`echo "$DIRECTORY" | cut -f5 -d '/'`
-        ENTITY=`echo "$DIRECTORY" | cut -f6 -d '/'`
-        MESSAGE=`tail -n1 "$DIRECTORY/$FILE" | cut -f3- -d ' '`
+        SERVER=`echo "$DIRECTORY" | cut -f5 -d '/' | tr -d '\000-\037'`
+        ENTITY=`echo "$DIRECTORY" | cut -f6 -d '/' | tr -d '\000-\037'`
+        MESSAGE=`tail -n1 "$DIRECTORY/$FILE" | cut -f3- -d ' ' | tr -d '\000-\037'`
         pgrep -f "./uii $SERVER $ENTITY" || \
             notify-send -t 0 -i network-receive "$ENTITY ($SERVER)" "<i>$MESSAGE</i>"
     )
