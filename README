@@ -14,8 +14,8 @@ usage:
     to mark text or insert it using X11 copy and paste, hold shift.
 
 dependencies:
-    uii depends on grep, ii, lsof, nohup, pgrep, rlwrap, sed, sh, splitvt, tail and tput.
-    iiinotify depends on inotifywait, notify-send and uii.
+    uii depends on busybox, ii, inotifywait, lsof, nohup, pgrep, rlwrap, sed, sh, splitvt and tput.
+    iiinotify depends on notify-send and uii.
 
 bugs:
     - channels with slashes in them are not accessible (due to ii fail).
