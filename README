@@ -17,6 +17,9 @@ dependencies:
     uii depends on busybox, ii, inotifywait, lsof, nohup, pgrep, rlwrap, sed, sh, splitvt and tput.
     iiinotify depends on notify-send and uii.
 
+    on a debian-based system, you should be able to install all of them using:
+    apt-get install busybox ii inotify-tools lsof coreutils procps rlwrap sed dash splitvt ncurses-bin libnotify-bin
+
 bugs:
     - channels with slashes in them are not accessible (due to ii fail).
     - rxvt may produce artifacts when uii output scrolls.
