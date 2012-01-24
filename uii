@@ -1,15 +1,15 @@
 #!/bin/sh
-INFILE="$HOME/irc/$1/in"
-(test -e "$INFILE" && lsof -Fc "$INFILE" | busybox grep -q p`pgrep -x ii`) || \
+IN="$HOME/irc/$1/in"
+(test -e "$IN" && lsof -Fc "$IN" | busybox grep -q p`pgrep -x ii`) || \
     (
         nohup ii -s "$1" -n "${3-$USER}" -k "${4-0000}" > /dev/null 2>&1 &
-        inotifywait "$INFILE"
+        inotifywait "$IN"
     )
 
 pgrep iiinotify > /dev/null 2>&1 || \
     nohup ./iiinotify > /dev/null 2>&1 &
 
-echo "/j $2" > "$INFILE"
+echo "/j $2" > "$IN"
 
 splitvt -bottom -s 80 -f -t "$2 @ $1 – uii" \
     -upper "./iioutput $HOME/irc/$1/$2/out ${3-$USER}" \
