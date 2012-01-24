@@ -1,13 +1,11 @@
 #!/bin/sh
 IN="$HOME/irc/$1/in"
-(test -e "$IN" && lsof -Fc "$IN" | busybox grep -q p`pgrep -x ii`) || \
-    (
-        nohup ii -s "$1" -n "${3-$USER}" -k "${4-0000}" > /dev/null 2>&1 &
-        inotifywait "$IN"
-    )
+(test -e "$IN" && lsof -Fc "$IN" | busybox grep -q p`pgrep -x ii`) || ( \
+    nohup ii -s "$1" -n "${3-$USER}" -k "${4-0000}" > /dev/null 2>&1 &
+    inotifywait "$IN"
+)
 
-pgrep iiinotify > /dev/null 2>&1 || \
-    nohup ./iiinotify > /dev/null 2>&1 &
+pgrep iiinotify > /dev/null 2>&1 || nohup ./iiinotify > /dev/null 2>&1 &
 
 echo "/j $2" > "$IN"
 
