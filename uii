@@ -1,14 +1,16 @@
 #!/bin/sh
 IRC="$HOME/irc"
 IN="$IRC/$1/in"
-(test -e "$IN" && lsof -Fc "$IN" | busybox grep -q "p`pgrep -x ii`") || ( \
+PIDS=`pgrep -x ii | sed 's/^/p/'`
+(test -e "$IN" && lsof -Fc "$IN" | busybox grep -q "$PIDS") || ( \
     nohup ii -s "$1" -n "${3-$USER}" -k "${4-0000}" > /dev/null 2>&1 &
     inotifywait "$IRC/$1/out"
 )
 
 pgrep iiinotify > /dev/null 2>&1 || nohup iiinotify > /dev/null 2>&1 &
 
-test -n "$2" && echo "/j $2 \a" > "$IN"
+(test -n "$2" && lsof -Fc "$IRC/$1/$2/in" | busybox grep -q "$PIDS") || \
+    echo "/j $2 \a" > "$IN"
 
 splitvt -bottom -s 80 -f -t "$2 @ $1 – uii" \
     -upper "iioutput $IRC/$1/$2/out ${3-$USER}" \
