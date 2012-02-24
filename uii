@@ -12,6 +12,9 @@ pgrep iiinotify > /dev/null 2>&1 || nohup iiinotify > /dev/null 2>&1 &
 (test -n "$2" && lsof -Fc "$IRC/$1/$2/in" | busybox grep -q "$PIDS") || \
     echo "/j $2 \a" > "$IN"
 
+echo "$2" | busybox head -c1 | busybox grep -q "[#&!+]" &&
+    HIGHLIGHT="${3-$USER}" || HIGHLIGHT=`printf '\n'`
+
 splitvt -bottom -s 80 -f -t "$2 @ $1 – uii" \
-    -upper "iioutput $IRC/$1/$2/out ${3-$USER}" \
+    -upper "iioutput $IRC/$1/$2/out $HIGHLIGHT" \
     -lower "iiinput $IRC/$1/$2/in $2"
