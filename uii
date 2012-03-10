@@ -1,9 +1,11 @@
 #!/bin/sh
-IRC="$HOME/irc"
+IRC="${XDG_DATA_HOME:-$HOME/.local/share}/uii/logs"
+test -d "$IRC" || busybox mkdir -p "$IRC"
+
 IN="$IRC/$1/in"
 PIDS=`pgrep -x ii | sed 's/^/p/'`
 (test -e "$IN" && lsof -Fc "$IN" | busybox grep -q "$PIDS") || ( \
-    nohup ii -s "$1" -n "${3-$USER}" -k "${4-0000}" > /dev/null 2>&1 &
+    nohup ii -i "$IRC" -s "$1" -n "${3-$USER}" -k "${4-0000}" > /dev/null 2>&1 &
     inotifywait "$IRC/$1/out"
 )
 
