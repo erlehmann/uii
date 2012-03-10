@@ -9,7 +9,7 @@ PIDS=`pgrep -x ii | sed 's/^/p/'`
     inotifywait "$IRC/$1/out"
 )
 
-pgrep iiinotify > /dev/null 2>&1 || nohup iiinotify > /dev/null 2>&1 &
+pgrep iiinotify > /dev/null 2>&1 || nohup iiinotify "$IRC" > /dev/null 2>&1 &
 
 (test -n "$2" && lsof -Fc "$IRC/$1/$2/in" | busybox grep -q "$PIDS") || ( \
     echo "/j $2 \a" > "$IN"
