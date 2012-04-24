@@ -14,15 +14,15 @@ usage:
     to mark text or insert it using X11 copy and paste, hold shift.
 
 dependencies:
-    uii depends on busybox, ii, inotifywait, lsof, nohup, pgrep, rlwrap, sed, sh, splitvt, stdbuf and tput.
+    uii depends on awk, ii, inotifywait, lsof, nohup, pgrep, rlwrap, sed, sh, splitvt, stdbuf and tput.
     iiinotify depends on notify-send and uii.
 
     on a debian-based system, you should be able to install all of them using:
-    apt-get install busybox ii inotify-tools lsof coreutils procps rlwrap sed dash splitvt ncurses-bin libnotify-bin
+    apt-get install coreutils dash ii inotify-tools libnotify-bin lsof mawk ncurses-bin procps rlwrap sed splitvt
 
 bugs:
     - channels with slashes in them are not accessible (due to ii fail).
-    - rxvt may produce artifacts when uii output scrolls.
+    - (u)rxvt may produce artifacts when uii output scrolls.
     - resizing the terminal fucks up the layout.
     - uii has no channel nick name list.
 
