@@ -14,7 +14,7 @@ usage:
     to mark text or insert it using X11 copy and paste, hold shift.
 
 dependencies:
-    uii depends on busybox, ii, inotifywait, lsof, nohup, pgrep, rlwrap, sed, sh, splitvt and tput.
+    uii depends on busybox, ii, inotifywait, lsof, nohup, pgrep, rlwrap, sed, sh, splitvt, stdbuf and tput.
     iiinotify depends on notify-send and uii.
 
     on a debian-based system, you should be able to install all of them using:
