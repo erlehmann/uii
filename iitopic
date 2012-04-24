@@ -1,6 +1,6 @@
 #!/bin/sh
 FORBIDDEN=`printf "\001-\011\013-\037"`
-stdbuf -oL tail -n 20 -f "$1" | \
+tail -n 20 -f "$1" | \
     stdbuf -oL tr -d "$FORBIDDEN" | \
     stdbuf -oL cut -f3- -d' ' | \
     stdbuf -oL grep "^$2" | \
