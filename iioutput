@@ -1,4 +1,6 @@
 #!/bin/sh
-FORBIDDEN=`busybox printf "\001-\011\013-\037"`
-busybox tail -n 80 -f "$1" | busybox tr -d "$FORBIDDEN" | \
-    sed -u "s/ $2/ "`tput bold`"$2"`tput sgr0`"\a/g" | busybox cut -c12-
+FORBIDDEN=`printf "\001-\011\013-\037"`
+tail -n 80 -f "$1" | \
+    stdbuf -oL tr -d "$FORBIDDEN" | \
+    stdbuf -oL sed "s/ $2/ "`tput bold`"$2"`tput sgr0`"\a/g" | \
+    stdbuf -oL cut -c12-

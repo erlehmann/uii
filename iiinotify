@@ -1,16 +1,15 @@
 #!/bin/sh
-FORBIDDEN=`busybox printf "\001-\011\013-\037"`
+FORBIDDEN=`printf "\001-\011\013-\037"`
 while true
 do
-    NOTIFICATION=`inotifywait -q "$1" -r -e OPEN | \
-        busybox tr -d "$FORBIDDEN"`
+    NOTIFICATION=`inotifywait -q "$1" -r -e OPEN | tr -d "$FORBIDDEN"`
     FILE=`echo "$NOTIFICATION" | cut -f3 -d ' '`
     DIRECTORY=`echo "$NOTIFICATION" | cut -f1 -d ' '`
     test "$FILE" = "out" && (
-        SERVER=`echo "$DIRECTORY" | busybox awk -F/ '{print $(NF-2)}'`
-        ENTITY=`echo "$DIRECTORY" | busybox awk -F/ '{print $(NF-1)}'`
+        SERVER=`echo "$DIRECTORY" | awk -F/ '{print $(NF-2)}'`
+        ENTITY=`echo "$DIRECTORY" | awk -F/ '{print $(NF-1)}'`
         MESSAGE=`tail -n1 "$DIRECTORY/$FILE" | cut -f3- -d ' ' | \
-            busybox tr -d "$FORBIDDEN"`
+            tr -d "$FORBIDDEN"`
         pgrep -f "./uii $SERVER $ENTITY" || \
             notify-send -t 0 -i network-receive "$ENTITY @ $SERVER" "$MESSAGE"
     )

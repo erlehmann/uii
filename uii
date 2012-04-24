@@ -1,22 +1,22 @@
 #!/bin/sh
 IRC="${XDG_DATA_HOME:-$HOME/.local/share}/uii/logs"
-test -d "$IRC" || busybox mkdir -p "$IRC"
+test -d "$IRC" || mkdir -p "$IRC"
 
 IN="$IRC/$1/in"
 PIDS=`pgrep -x ii | sed 's/^/p/'`
-(test -e "$IN" && lsof -Fc "$IN" | busybox grep -q "$PIDS") || ( \
+(test -e "$IN" && lsof -Fc "$IN" | grep -q "$PIDS") || ( \
     nohup ii -i "$IRC" -s "$1" -n "${3-$USER}" -k "${4-0000}" > /dev/null 2>&1 &
     inotifywait "$IRC/$1/out"
 )
 
 pgrep iiinotify > /dev/null 2>&1 || nohup iiinotify "$IRC" > /dev/null 2>&1 &
 
-(test -n "$2" && lsof -Fc "$IRC/$1/$2/in" | busybox grep -q "$PIDS") || ( \
+(test -n "$2" && lsof -Fc "$IRC/$1/$2/in" | grep -q "$PIDS") || ( \
     echo "/j $2 \a" > "$IN"
-    busybox touch "$IRC/$1/$2/out"
+    touch "$IRC/$1/$2/out"
 )
 
-echo "$2" | busybox head -c1 | busybox grep -q "[#&!+]" &&
+echo "$2" | head -c1 | grep -q "[#&!+]" &&
     HIGHLIGHT="${3-$USER}" || HIGHLIGHT=`printf '\n'`
 
 splitvt -bottom -s 80 -f -t "$2 @ $1 – uii" \
