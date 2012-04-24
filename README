@@ -8,10 +8,14 @@ synopsis:
     for messages not displayed in an existing uii instance, a notification is shown.
 
 usage:
-    ./uii server [channel] [nickname] [password]
+    uii server [channel] [nickname] [password]
 
     to quit uii, press ^D; alternatively, press ^C twice or ^O, then q.
     to mark text or insert it using X11 copy and paste, hold shift.
+
+configuration:
+    the file $XDG_CONFIG_HOME/uii/logins should contain three space-delimited values per line, represening server, username and password.
+    configuration values are used only if no command line options for nickname and password are given.
 
 dependencies:
     uii depends on awk, ii, inotifywait, lsof, nohup, pgrep, rlwrap, sed, sh, splitvt, stdbuf and tput.
