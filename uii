@@ -22,7 +22,7 @@ PIDS=`pgrep -x ii | sed 's/^/p/'`
 
 pgrep iiinotify > /dev/null 2>&1 || nohup iiinotify "$IRC" > /dev/null 2>&1 &
 
-(test -n "$2" && lsof -Fc "$IRC/$1/$2/in" | grep -q "$PIDS") || ( \
+(test -n "$2" && lsof -Fc "$IRC/$1/$2/in" | grep -q "$PIDS" ) || ( \
     echo "/j $2 \a" > "$IN"
     touch "$IRC/$1/$2/out"
 )
