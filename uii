@@ -17,7 +17,7 @@ PIDS=`pgrep -x ii | sed 's/^/p/'`
     nohup ii -i "$IRC" -s "$1" \
         -n "${3-${CONFIGUSER-$USER}}" \
         -k "${4-${CONFIGPASS-0000}}" > /dev/null 2>&1 &
-    inotifywait "$IRC/$1/out"
+    inotifywait "$IRC/$1/out" -e modify
 )
 
 pgrep iiinotify > /dev/null 2>&1 || nohup iiinotify "$IRC" > /dev/null 2>&1 &
