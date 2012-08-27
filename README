@@ -18,11 +18,11 @@ configuration:
     configuration values are used only if no command line options for nickname and password are given.
 
 dependencies:
-    uii depends on awk, ii, inotifywait, lsof, nohup, pgrep, rlwrap, sed, sh, splitvt, stdbuf and tput.
+    uii depends on awk, ii, inotifywait, lsof, nohup, pgrep, ping, rlwrap, sed, sh, splitvt, stdbuf and tput.
     iiinotify depends on notify-send and uii.
 
     on a debian-based system, you should be able to install all of them using:
-    apt-get install coreutils dash ii inotify-tools libnotify-bin lsof mawk ncurses-bin procps rlwrap sed splitvt
+    apt-get install coreutils dash ii inotify-tools iputils-ping libnotify-bin lsof mawk ncurses-bin procps rlwrap sed splitvt
 
 bugs:
     - channels with slashes in them are not accessible (due to ii fail).
