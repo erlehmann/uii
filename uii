@@ -29,7 +29,7 @@ pgrep iiinotify > /dev/null 2>&1 || nohup iiinotify "$IRC" > /dev/null 2>&1 &
 )
 
 echo "$2" | head -c1 | grep -q "[#&!+]" &&
-    HIGHLIGHT="${3-${CONFIGUSER-$USER}}" || HIGHLIGHT=`printf '\n'`
+    HIGHLIGHT="${3-${CONFIGUSER-$USER}}" || HIGHLIGHT="<$2>"
 
 splitvt -bottom -s 80 -f -t "$2 @ $1 – uii" \
     -upper "iioutput $IRC/$1/$2/out $HIGHLIGHT" \
