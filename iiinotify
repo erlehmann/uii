@@ -11,6 +11,7 @@ do
         MESSAGE=`tail -n1 "$DIRECTORY/$FILE" | cut -f3- -d ' ' | \
             tr -d "$FORBIDDEN"`
         pgrep -f "./uii $SERVER $ENTITY" || \
-            notify-send -t 0 -i network-receive "$ENTITY @ $SERVER" "$MESSAGE"
+            test "$SERVER" != "logs" && \
+                notify-send -t 0 -i network-receive "$ENTITY @ $SERVER" "$MESSAGE"
     )
 done
