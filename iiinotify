@@ -1,6 +1,6 @@
 #!/bin/sh
 FORBIDDEN=`printf "\001-\011\013-\037"`
-while true
+while pgrep -x ii > /dev/null;
 do
     NOTIFICATION=`inotifywait -q "$1" -r -e modify | tr -d "$FORBIDDEN"`
     FILE=`echo "$NOTIFICATION" | cut -f3 -d ' '`
