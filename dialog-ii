@@ -1,0 +1,17 @@
+#!/bin/sh
+IRC="${XDG_DATA_HOME:-$HOME/.local/share}/uii/logs"
+HEIGHT=`tput lines`
+WIDTH=`tput cols`
+FORBIDDEN=`printf "\001-\011\013-\037"`
+NAMES=`tail -n40 $IRC/$1/out | grep "=\ $2" | tail -1 | cut -f5- -d' ' | \
+    tr ' ' '\n' | sort | tr -d "$FORBIDDEN"`
+TOPIC=`tail -n40 $IRC/$1/out | grep "[1234567890]\ $2" | tail -2 | head -1 | \
+    cut -f4- -d' ' | tr -d "$FORBIDDEN"`
+dialog --no-lines --no-shadow --begin 4 0 \
+        --tailboxbg $IRC/$1/$2/out `expr $HEIGHT - 8` `expr $WIDTH - 20` \
+    --and-widget --keep-window --begin 0 `expr $WIDTH - 20` \
+        --infobox "$NAMES" $HEIGHT 20 \
+    --and-widget --keep-window --begin 0 0 \
+        --infobox "$TOPIC"  5 `expr $WIDTH - 20` \
+    --and-widget --keep-window --begin `expr $HEIGHT - 5` 0 \
+        --inputbox "$1 $2 $3" 7 `expr $WIDTH - 20`
