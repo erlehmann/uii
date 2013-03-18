@@ -1,0 +1,16 @@
+#!/bin/sh
+# read <http://www.gnu.org/software/termutils/manual/termutils-2.0/html_chapter/tput_1.html#SEC8>
+trap "kill -9 -`ps -o pgid=$$`" 0 1 2 5 15
+COLS=`tput cols`; LINES=`tput lines`;
+TAILLINES=`expr $LINES - 2`; TAILAREA=`expr "$COLS" \* "$TAILLINES"`
+FORBIDDEN=`printf "\001-\011\013-\037"`
+tput clear; tput cup "$LINES" 0; tput sc
+(while true; do
+    tput home; printf "%${TAILAREA}s"
+    tput home; tail -n "$TAILLINES" "$1" | tr -d "$FORBIDDEN"
+    tput rev; printf "%${COLS}s"; tput cr; echo -n "$1" "$2"; tput sgr0
+    tput rc
+    inotifywait "$1" -e MODIFY -qq
+    tput sc
+done) &
+rlwrap -i -p'0;37' -r -S "$3 " cat >> "$1" 2>&1
