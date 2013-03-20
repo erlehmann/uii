@@ -5,9 +5,9 @@ FORBIDDEN=`printf "\001-\011\013-\037"`
 TEMPFILE=`mktemp -t "uii-$3-XXXXXX" 2>/dev/null`
 trap "rm -f $TEMPFILE" 0 1 2 5 15
 while true; do
-NAMES=`tail -n40 $IRC/$1/out | grep "=\ $2" | tail -1 | cut -f5- -d' ' | \
+NAMES=`tail -n80 $IRC/$1/out | grep "=\ $2" | tail -1 | cut -f5- -d' ' | \
     tr ' ' '\n' | sort | tr -d "$FORBIDDEN"`
-TOPIC=`tail -n40 $IRC/$1/out | grep "[1234567890]\ $2" | tail -2 | \
+TOPIC=`tail -n80 $IRC/$1/out | grep "[1234567890]\ $2" | tail -2 | \
     head -1 | cut -f4- -d' ' | tr -d "$FORBIDDEN"`
 dialog --no-lines --no-shadow --begin 4 0 \
         --tailboxbg "$IRC/$1/$2/out" `expr $HEIGHT - 8` `expr $WIDTH - 20` \
