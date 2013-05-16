@@ -9,6 +9,7 @@ test -f "$LOGIN" || touch "$LOGINS"
 
 CONFIGUSER=`cat "$LOGINS" | grep "$1" | cut -f2 -d' '`
 CONFIGPASS=`cat "$LOGINS" | grep "$1" | cut -f3 -d' '`
+PASS="${4-${CONFIGPASS-0000}}"
 
 IN="$IRC/$1/in"
 PIDS=`pgrep -x ii | sed 's/^/p/'`
@@ -17,7 +18,7 @@ PIDS=`pgrep -x ii | sed 's/^/p/'`
     test -d "$IRC" || mkdir -p "$IRC"
     nohup ii -i "$IRC" -s "$1" \
         -n "${3-${CONFIGUSER-$USER}}" \
-        -k "${4-${CONFIGPASS-0000}}" > /dev/null 2>&1 &
+        -k PASS > /dev/null 2>&1 &
     inotifywait "$IRC/$1/out" -e modify
 ) || exit
 
