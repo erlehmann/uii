@@ -2,7 +2,7 @@
 # read <http://www.gnu.org/software/termutils/manual/termutils-2.0/html_chapter/tput_1.html#SEC8>
 echo "USAGE: $0 OUTFILE INFILE HIGHLIGHT PROMPT"
 test -n "$1" && test -n "$2" && test -e "$1" && test -e "$2" || exit 1;
-trap "kill -9 -$$" 0 1 2 5 15
+trap "kill 0" 0 1 2 5 15
 BOLD=`tput bold`; RESET=`tput sgr0`; BANNED=`printf "\001-\011\013-\037"`
 init () {
     COLS=`tput cols`; LINES=`tput lines`; TAILLINES=`expr $LINES - 2`
