@@ -15,7 +15,8 @@ dialog --no-lines --no-shadow --begin 4 0 \
         --infobox "$NAMES" "$HEIGHT" 20 \
     --and-widget --keep-window --begin 0 0 \
         --infobox "$TOPIC"  5 `expr $WIDTH - 20` \
-    --and-widget --keep-window --begin `expr $HEIGHT - 5` 0 \
+    --and-widget --keep-window --begin `expr $HEIGHT - 6` 0 \
+        --nook --nocancel \
         --inputbox "$1 $2 $3" 7 `expr $WIDTH - 20` 2> "$TEMPFILE" || break
 echo `cat "$TEMPFILE"` > "$IRC/$1/$2/in"
 done;
