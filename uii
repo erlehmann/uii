@@ -32,6 +32,6 @@ pgrep iiinotify > /dev/null 2>&1 || nohup iiinotify "$IRC" > /dev/null 2>&1 &
 echo "$2" | head -c1 | grep -q "[#&!+]" &&
     HIGHLIGHT="${3-${CONFIGUSER-$USER}}" || HIGHLIGHT="<$2>"
 
-splitvt -bottom -s 80 -f -t "$2 @ $1 – uii" \
-    -upper "iioutput $IRC/$1/$2/out $HIGHLIGHT" \
-    -lower "iiinput $IRC/$1/$2/in $2"
+T=`tput tsl -T xterm+sl`; F=`tput fsl -T xterm+sl`; D=`tput dsl -T xterm+sl`
+trap 'echo -n "$D"; exit 0' 0 2 11 15; echo -n "$T$2 @ $1$F"
+uiipager "$IRC/$1/$2/out" "$IRC/$1/$2/in" "$HIGHLIGHT" "$2"

@@ -1,2 +1,2 @@
 #!/bin/sh
-cp ii* uii /usr/bin
+cp iiinotify uii uiipager /usr/bin

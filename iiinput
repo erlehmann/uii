@@ -1,3 +1,0 @@
-#!/bin/sh
-rlwrap -i -p'0;37' -r -S "$2 " cat > "$1"
-kill "$PPID"
