@@ -1,7 +1,8 @@
 #!/bin/sh
 FORBIDDEN=`printf "\001-\011\013-\037"`
-tail -n 20 "$1" | \
+tail -n20 "$1" | \
     stdbuf -oL tr -d "$FORBIDDEN" | \
     stdbuf -oL cut -f3- -d' ' | \
-    stdbuf -oL grep "..$2" | \
-    stdbuf -i0 -oL cut -f3- -d' '
+    stdbuf -o0 tr '\n' ' ' | \
+    stdbuf -i0 -o0 grep -o "\=.$2.\+$2.End of /NAMES list." | \
+    cut -f3- -d' ' | rev | cut -f6- -d' ' | rev
