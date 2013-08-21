@@ -9,10 +9,11 @@ init () {
     TAILAREA=`expr "$COLS" \* "$TAILLINES"`; FOOTER=`tput rev; \
         printf "%${COLS}s"; tput cr; tput sgr0`
 }; init; tput clear; tput cup "$LINES" 0
+tput hs && echo `tput tsl`"$5"`tput fsl`;
 redraw() {
     tput sc; tput home; printf "%${TAILAREA}s"
     tput home; tail -n "$TAILLINES" "$1" | tr -d "$BANNED" | \
-        fold -sw "$COLS" | sed "s/\(^\|\s\|\$\)\($3\)/\1$BOLD\2$RESET/gi" | \
+        fold -sw "$COLS" | sed "s/\(^\|\s\|\$\)\($3\)/\1$BOLD\2$RESET\a/gi" | \
         tail -n "$TAILLINES"
     echo "$FOOTER"; tput rc;
 }
