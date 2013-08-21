@@ -4,5 +4,5 @@ SERVER=`dirname \`dirname "$1"\``/out
 LINES=`expr \`tput lines\` / 2`
 tail -q -n "$LINES" -f "$SERVER" "$1" | \
     stdbuf -oL tr -d "$FORBIDDEN" | \
-    stdbuf -oL sed "s/ $2/ "`tput bold`"$2"`tput sgr0`"\a/g" | \
+    stdbuf -oL sed "s/ $2/ "`tput bold`"$2"`tput sgr0`"\a/gi" | \
     stdbuf -oL cut -c12-
