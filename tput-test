@@ -2,20 +2,21 @@
 # read <http://www.gnu.org/software/termutils/manual/termutils-2.0/html_chapter/tput_1.html#SEC8>
 echo "USAGE: $0 OUTFILE INFILE HIGHLIGHT PROMPT"
 test -n "$1" && test -n "$2" && test -e "$1" && test -e "$2" || exit 1;
-trap "kill -9 -`ps -o pgid=$$`" 0 1 2 5 15
-BOLD=`tput bold`; NORMAL=`tput sgr0`; BANNED=`printf "\001-\011\013-\037"`
+trap "kill -9 -$$" 0 1 2 5 15
+BOLD=`tput bold`; RESET=`tput sgr0`; BANNED=`printf "\001-\011\013-\037"`
 init () {
     COLS=`tput cols`; LINES=`tput lines`; TAILLINES=`expr $LINES - 2`
     TAILAREA=`expr "$COLS" \* "$TAILLINES"`; FOOTER=`tput rev; \
-        printf "%${COLS}s"; tput cr; echo -n "$1 ⌃ | $2 ⌄"; tput sgr0`
-}; init "$1" "$2";
-tput clear; tput cup "$LINES" 0; tput sc
-(while true; do
-    trap 'init "$1" "$2"' 28;
-    tput home; printf "%${TAILAREA}s"
+        printf "%${COLS}s"; tput cr; tput sgr0`
+}; init; tput clear; tput cup "$LINES" 0
+redraw() {
+    tput sc; tput home; printf "%${TAILAREA}s"
     tput home; tail -n "$TAILLINES" "$1" | tr -d "$BANNED" | \
-        sed "s/ $3/ $BOLD$3$NORMAL/g" | head -n `expr "$TAILLINES" - 1`
-    tail -n 1 "$1" | tr -d "$BANNED" | sed "s/ $3/ $BOLD$3$NORMAL\a/g"
-    echo "$FOOTER"; tput rc; inotifywait "$1" -e MODIFY -qq; tput sc;
+        fold -sw "$COLS" | sed "s/\(^\|\s\|\$\)\($3\)/\1$BOLD\2$RESET/gi" | \
+        tail -n "$TAILLINES"
+    echo "$FOOTER"; tput rc;
+}
+(while true; do
+    trap 'init' 28; redraw "$1" "$2" "$3"; inotifywait "$1" -e MODIFY -qq;
 done) &
-rlwrap -i -p'0;37' -r -S "$4 " cat >> "$1" 2>/dev/null
+rlwrap -i -p'0;37' -r -S "$4 " cat >> "$2" 2>/dev/null
