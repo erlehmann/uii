@@ -10,19 +10,18 @@ synopsis:
 usage:
     uii server [channel] [nickname] [password]
 
-    to quit uii, press ^D; alternatively, press ^C twice or ^O, then q.
-    to mark text or insert it using X11 copy and paste, hold shift.
+    to quit uii, input ^C.
 
 configuration:
     the file $XDG_CONFIG_HOME/uii/logins should contain three space-delimited values per line, represening server, username and password.
     configuration values are used only if no command line options for nickname and password are given.
 
 dependencies:
-    uii depends on awk, ii, inotifywait, lsof, nohup, pgrep, ping, rlwrap, sed, sh, splitvt, stdbuf and tput.
+    uii depends on awk, ii, inotifywait, lsof, nohup, pgrep, ping, rlwrap, sed, sh, stdbuf and tput.
     iiinotify depends on notify-send and uii.
 
     on a debian-based system, you should be able to install all of them using:
-    apt-get install coreutils dash ii inotify-tools iputils-ping libnotify-bin lsof mawk ncurses-bin procps rlwrap sed splitvt
+    apt-get install coreutils dash ii inotify-tools iputils-ping libnotify-bin lsof mawk ncurses-bin procps rlwrap sed
 
 bugs:
     - channels with slashes in them are not accessible (due to ii fail).
